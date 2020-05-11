@@ -62,8 +62,8 @@ from matplotlib import cm
 from scripts.player_displacement_value import player_displacement_value_tab
 
 # Read data into dataframes
-last_row = pd.read_csv(os.path.join(lastrow_DIR/'liverpool_2019.csv'), index_col=('play', 'frame'))
-
+last_row = pd.read_csv(os.path.join(lastrow_DIR/'liverpool_2019_filtered.csv'), index_col=('play', 'frame'))
+print('last_row imported')
 # to Metrica Format
 metrica_attack, metrica_defence = lrfot.lastrow_to_friendsoftracking(last_row)
 metrica_attack = lrfot.lastrow_to_metric_coordinates(metrica_attack)
@@ -73,17 +73,21 @@ metrica_attack, data_defence = lrfot.lastrow_to_single_playing_direction(metrica
 metrica_attack = pvm.lastrow_calc_player_velocities(metrica_attack,smoothing=True)
 metrica_defence = pvm.lastrow_calc_player_velocities(data_defence,smoothing=True)
 
+print('converted to metrica')
 # Read in Events
 events_dict, events_df = create.create_events(metrica_attack)
 
+print('events imported')
 # Real Shirt Mapping
 shirt_mapping = sm.create_consistent_shirt_mapping(last_row)
 events_df = sm.real_shirt_mapping(events_df, shirt_mapping)
+print('shirts mapped')
 
 # to Bokeh Format
 bokeh_attack = mtb.tracking_to_bokeh_format(metrica_attack)
 bokeh_defence = mtb.tracking_to_bokeh_format(metrica_defence)
 
+print('converted to bokeh')
 # List of available Matches
 match_list = events_df.index.get_level_values(level=0).unique().tolist()
 
@@ -93,8 +97,11 @@ bokehpalette = [RGB(*tuple(rgb)).to_hex() for rgb in m_coolwarm_rgb]
 
 # Create each of the tabs
 #tab1 = goals_overview_tab(events_df, match_list, bokeh_attack, bokeh_defence, shirt_mapping)
+#print('tab1 completed')
 #tab2 = pitch_surfaces_tab(events_df, metrica_attack, metrica_defence, bokeh_attack, bokeh_defence, shirt_mapping, match_list)
+#print('tab2 completed')
 tab3 = player_displacement_value_tab(events_df, metrica_attack, metrica_defence, bokeh_attack, bokeh_defence, shirt_mapping, match_list)
+#print('tab3 completed')
 
 # Put all the tabs into one application
 #tabs = Tabs(tabs = [tab1, tab2, tab3])

@@ -239,10 +239,11 @@ def create_events(tracking_data):
         'player_to' : ['2', '1', np.NaN]
     }
     
-    matches_events = [liv30bou,bay01liv,ful01liv,sou12liv,liv20por,por02liv,liv40bar,liv10wol,liv30nor,liv21che,liv21new,liv20sal,gen03liv,liv20man,liv10eve,liv20eve,bou03liv,liv10wat,lei03liv]
+    #matches_events = [liv30bou,bay01liv,ful01liv,sou12liv,liv20por,por02liv,liv40bar,liv10wol,liv30nor,liv21che,liv21new,liv20sal,gen03liv,liv20man,liv10eve,liv20eve,bou03liv,liv10wat,lei03liv]
+    matches_events_filtered = [bay01liv,ful01liv]
 
     events_dict = {}
-    for m in matches_events:
+    for m in matches_events_filtered:
         
         mplay = m['play']
         mteam = m['team']
