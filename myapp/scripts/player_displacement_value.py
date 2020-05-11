@@ -35,9 +35,13 @@ def player_displacement_value_tab(events_df, metrica_attack, metrica_defence, bo
         ball_frame = att_frame[att_frame['player'] == "ball"]
 
         PPCF,xgrid,ygrid = pvm.lastrow_generate_pitch_control_for_event(play,event_frame, events_df, metrica_attack, metrica_defence, params, field_dimen = (106.,68.,), n_grid_cells_x = 50)
+        print('calculating..')
         PT = pvm.generate_relevance_at_event(play,event_frame, events_df, PPCF, params)
+        print('calculating..')
         PS = pvm.generate_scoring_opportunity(field_dimen = (106.,68.,),n_grid_cells_x = 50)
+        print('calculating..')
         PPV = pvm.generate_pitch_value(PPCF,PT,PS,field_dimen = (106.,68.,),n_grid_cells_x = 50)
+        print('calculating..')
         RPPV = pvm.generate_relative_pitch_value(play, event_frame, events_df, metrica_attack, PPV, xgrid, ygrid)
 
         xgrid_new = np.linspace( -field_dimen[0]/2., field_dimen[0]/2., new_grid_size)
@@ -83,6 +87,7 @@ def player_displacement_value_tab(events_df, metrica_attack, metrica_defence, bo
         event_selection = event_select.value
         
         new_og_event_src, new_og_att_src, new_og_def_src, new_og_ball_src, new_og_PPCF_src, new_og_PT_src, new_og_PS_src, new_og_PPV_src, new_og_RPPV_src, xgrid, ygrid = make_dataset(match_selection, event_selection, metrica_attack, metrica_defence, bokeh_attack, bokeh_defence)
+        print('calculating..')
         og_att_src.data.update(new_og_att_src.data)
         og_def_src.data.update(new_og_def_src.data)
         og_ball_src.data.update(new_og_ball_src.data)
@@ -93,6 +98,7 @@ def player_displacement_value_tab(events_df, metrica_attack, metrica_defence, bo
         og_RPPV_src.data.update(new_og_RPPV_src.data)
         
         new_event_src, new_att_src, new_def_src, new_ball_src, new_PPCF_src, new_PT_src, new_PS_src, new_PPV_src, new_RPPV_src, xgrid, ygrid = make_dataset(match_selection, event_selection, metrica_attack, metrica_defence, bokeh_attack, bokeh_defence)        
+        print('calculating..')
         event_src.data.update(new_event_src.data)
         att_src.data.update(new_att_src.data)
         def_src.data.update(new_def_src.data)
@@ -136,7 +142,7 @@ def player_displacement_value_tab(events_df, metrica_attack, metrica_defence, bo
             bokeh_attack_new = mtb.tracking_to_bokeh_format(metrica_attack_new)
         
             new_event_src, new_att_src, new_def_src, new_ball_src, new_PPCF_src, new_PT_src, new_PS_src, new_PPV_src, new_RPPV_src, xgrid, ygrid = make_dataset(match_selection, event_selection, metrica_attack_new, metrica_defence, bokeh_attack_new, bokeh_defence)   
-            
+            print('calculating..')
             event_src.data.update(new_event_src.data)
             att_src.data.update(new_att_src.data)
             def_src.data.update(new_def_src.data)
@@ -168,7 +174,7 @@ def player_displacement_value_tab(events_df, metrica_attack, metrica_defence, bo
             bokeh_defence_new = mtb.tracking_to_bokeh_format(metrica_defence_new)
 
             new_event_src, new_att_src, new_def_src, new_ball_src, new_PPCF_src, new_PT_src, new_PS_src, new_PPV_src, new_RPPV_src, xgrid, ygrid = make_dataset(match_selection, event_selection, metrica_attack, metrica_defence_new, bokeh_attack, bokeh_defence_new)   
-            
+            print('calculating..')
             event_src.data.update(new_event_src.data)
             att_src.data.update(new_att_src.data)
             def_src.data.update(new_def_src.data)
@@ -187,16 +193,18 @@ def player_displacement_value_tab(events_df, metrica_attack, metrica_defence, bo
     recalculate_button.on_event(ButtonClick, recalculate)
     
     # Initial match to plot
-    play = 'Liverpool [3] - 0 Bournemouth'
+    print('create initial tab3')
+    play = 'Bayern 0 - [1] Liverpool'
     event_frame = 0
 
     og_event_src, og_att_src, og_def_src, og_ball_src, og_PPCF_src, og_PT_src, og_PS_src, og_PPV_src, og_RPPV_src, xgrid, ygrid = make_dataset(play, event_frame, metrica_attack, metrica_defence, bokeh_attack, bokeh_defence)
+    print('calculating..')
     event_src, att_src, def_src, ball_src, PPCF_src, PT_src, PS_src, PPV_src, RPPV_src, xgrid, ygrid = make_dataset(play, event_frame, metrica_attack, metrica_defence, bokeh_attack, bokeh_defence)
-    
+    print('calculating..')
     pitch_value = make_plot(event_src, att_src, def_src, ball_src, PPV_src, bokeh_attack, bokeh_defence, xgrid, ygrid, field_dimen = (106.,68.,), new_grid_size = 500)
     pitch_value.title.text = "Pitch Value"
     pitch_value.title.text_font_size = "20px"
-    
+    print('calculating..')
     relative_pitch_value = make_plot(event_src, att_src, def_src, ball_src, RPPV_src, bokeh_attack, bokeh_defence, xgrid, ygrid, field_dimen = (106.,68.,), new_grid_size = 500)
     relative_pitch_value.title.text = "Relative Pitch Value"
     relative_pitch_value.title.text_font_size = "20px"

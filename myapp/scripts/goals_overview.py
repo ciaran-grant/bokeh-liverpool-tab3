@@ -65,8 +65,9 @@ def goals_overview_tab(events_df, match_list, bokeh_attack, bokeh_defence, shirt
 
 
 # Initial match to plot
-    match = 'Liverpool [3] - 0 Bournemouth'
-    event_frame = 1
+    print('create initial tab1')
+    match = 'Bayern 0 - [1] Liverpool'
+    event_frame = 0
 
     event_src, att_src, def_src, ball_src = make_dataset(match, event_frame, bokeh_attack, bokeh_defence)
 
@@ -78,7 +79,7 @@ def goals_overview_tab(events_df, match_list, bokeh_attack, bokeh_defence, shirt
     
     
     # Paragraph for instructions and disclaimers
-    instructions = Paragraph(text = "Select a match from the dropdown list below. Then enter an event number or All to see all events.")
+    instructions = Paragraph(text = "Select a match from the dropdown list below. Then enter an event number or 'All' to see all events.")
     
     # Layout setup
     control = WidgetBox(row(match_select, event_select))

@@ -106,23 +106,24 @@ def pitch_surfaces_tab(events_df, metrica_attack, metrica_defence, bokeh_attack,
 
 
         # Initial match to plot
-    play = 'Liverpool [3] - 0 Bournemouth'
+    print('create initial tab2')
+    play = 'Bayern 0 - [1] Liverpool'
     event_frame = 0
 
     event_src, att_src, def_src, ball_src, PPCF_src, PT_src, PS_src, PPV_src, RPPV_src, xgrid, ygrid = make_dataset(play, event_frame, metrica_attack, metrica_defence, bokeh_attack, bokeh_defence)
-
+    print('calculating..')
     pitch_control = make_plot(event_src, att_src, def_src, ball_src, PPCF_src, bokeh_attack, bokeh_defence, xgrid, ygrid, field_dimen = (106.,68.,), new_grid_size = 500)
     pitch_control.title.text = "Pitch Control"
     pitch_control.title.text_font_size = "20px"
-    
+    print('calculating..')
     pitch_transition = make_plot(event_src, att_src, def_src, ball_src, PT_src, bokeh_attack, bokeh_defence, xgrid, ygrid, field_dimen = (106.,68.,), new_grid_size = 500)
     pitch_transition.title.text = "Transition Likelihood"
     pitch_transition.title.text_font_size = "20px"
-    
+    print('calculating..')
     probability_scoring = make_plot(event_src, att_src, def_src, ball_src, PS_src, bokeh_attack, bokeh_defence, xgrid, ygrid, field_dimen = (106.,68.,), new_grid_size = 500)
     probability_scoring.title.text = "Scoring Likelihood"
     probability_scoring.title.text_font_size = "20px"
-    
+    print('calculating..')
     pitch_value = make_plot(event_src, att_src, def_src, ball_src, PPV_src, bokeh_attack, bokeh_defence, xgrid, ygrid, field_dimen = (106.,68.,), new_grid_size = 500)
     pitch_value.title.text = "Pitch Value"
     pitch_value.title.text_font_size = "20px"
